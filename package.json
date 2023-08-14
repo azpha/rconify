@@ -1,0 +1,42 @@
+{
+  "devDependencies": {
+    "@jest/globals": "^29.6.2",
+    "@types/node": "^20.5.0",
+    "jest": "^29.6.2",
+    "typescript": "^5.1.6"
+  },
+  "name": "tsrcon",
+  "description": "Utilize the RCON Protocol in your NodeJS program",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest tests --config=jest.config.js --detectOpenHandles",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azpha/tsrcon.git"
+  },
+  "keywords": [
+    "rcon",
+    "minecraft rcon",
+    "project zomboid rcon",
+    "source",
+    "typescript",
+    "javascript"
+  ],
+  "author": "Alex",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/azpha/tsrcon/issues"
+  },
+  "homepage": "https://github.com/azpha/tsrcon#readme",
+  "files": [
+    "dist/**/*"
+  ],
+  "dependencies": {
+    "ts-jest": "^29.1.1"
+  }
+}
