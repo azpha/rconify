@@ -1,14 +1,14 @@
-# tsrcon
+# rconify
 Connect and interact with any Source-compliant server using the [Valve RCON Specification](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol)
 
 ## Usage
 ```javascript
-import {RconClient} from 'tsrcon'
+import {RconClient} from 'rconify'
 ```
 
 ## Example
 ```javascript
-import {RconClient} from 'tsrcon'
+import {RconClient} from 'rconify'
 
 (async() => {
     // Initialize the client
