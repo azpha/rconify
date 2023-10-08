@@ -7,7 +7,7 @@
   },
   "name": "rconify",
   "description": "Utilize the RCON Protocol in your NodeJS program",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest tests --config=jest.config.js --detectOpenHandles",

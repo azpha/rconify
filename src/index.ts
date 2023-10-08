@@ -10,7 +10,8 @@ import {Buffer} from 'buffer';
 type RconConnectorOptions = {
     host: string,
     password: string,
-    port: number
+    port: number,
+    ignoreInvalidAuthResponse: boolean
 }
 
 // Request IDs
@@ -29,13 +30,16 @@ export class RconClient {
     socket: net.Socket;
     id: number;
     options: RconConnectorOptions;
+    ignoreInvalidAuthResponse: boolean;
 
     constructor(options: RconConnectorOptions) {
         // General data keeping
         // connected - indicates the client is connected to a server
         // authenticated - indicates the client is authenticated with a server
+        // ignoreInvalidAuthResponse - some game servers like Project Zomboid don't respond according to spec, so this overrides that
         this.connected = false;
         this.authenticated = false;
+        this.ignoreInvalidAuthResponse = options.ignoreInvalidAuthResponse
 
         // Socket stuff
         this.socket = new net.Socket;
@@ -66,11 +70,16 @@ export class RconClient {
                 
                 // data has been returned from the server, ensure this is for the same client
                 this.socket.once('data', (d) => {
-                    if (this.id === d.readInt32LE(4) && d.readInt32LE(8) === RconRequestIds.SERVER_AUTH_RESPONSE) {
-                        this.authenticated = true;
-                        resolve(null)
+                    if (!this.ignoreInvalidAuthResponse) {
+                        if (this.id === d.readInt32LE(4) && d.readInt32LE(8) === RconRequestIds.SERVER_AUTH_RESPONSE) {
+                            this.authenticated = true;
+                            resolve(null)
+                        } else {
+                            reject(new Error("RCON password rejected"))
+                        }
                     } else {
-                        reject(new Error("RCON password rejected"))
+                        this.authenticated = true
+                        resolve(null)
                     }
                 })
             })
